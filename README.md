@@ -1,0 +1,1 @@
+# Sonar Slack Notify Plugin
