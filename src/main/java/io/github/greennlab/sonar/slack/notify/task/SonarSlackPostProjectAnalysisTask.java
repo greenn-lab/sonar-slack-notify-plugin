@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.ce.posttask.PostProjectAnalysisTask;
 import org.sonar.api.ce.posttask.Project;
+import org.sonar.api.ce.posttask.ScannerContext;
 import org.sonar.api.config.Configuration;
 
 import java.io.IOException;
@@ -46,6 +47,7 @@ public class SonarSlackPostProjectAnalysisTask implements PostProjectAnalysisTas
             var status = qualityGate.getStatus();
             payload.append("STATUS: ").append(status).append(LF);
         }
+
 
         sonarqubeLink(project, payload);
 

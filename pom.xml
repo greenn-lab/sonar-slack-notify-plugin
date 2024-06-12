@@ -47,7 +47,7 @@
                 <extensions>true</extensions>
                 <configuration>
                     <jarName>${project.artifactId}-${project.version}</jarName>
-                    <pluginApiMinVersion>9.0</pluginApiMinVersion>
+                    <pluginApiMinVersion>9.0.0</pluginApiMinVersion>
                     <pluginKey>slack-notify</pluginKey>
                     <pluginClass>io.github.greennlab.sonar.slack.notify.SonarSlackNotifyPlugin</pluginClass>
                     <pluginName>Slack Notify</pluginName>

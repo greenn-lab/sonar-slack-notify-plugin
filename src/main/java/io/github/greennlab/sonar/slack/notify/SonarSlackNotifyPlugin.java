@@ -6,6 +6,7 @@ import org.sonar.api.PropertyType;
 import org.sonar.api.config.PropertyDefinition;
 
 import java.util.List;
+import org.sonar.api.config.PropertyFieldDefinition;
 
 import static io.github.greennlab.sonar.slack.notify.SonarSlackNotifyProps.ENABLED;
 import static io.github.greennlab.sonar.slack.notify.SonarSlackNotifyProps.HOOK_URL;
@@ -29,12 +30,19 @@ public class SonarSlackNotifyPlugin implements Plugin {
                     .index(0)
                     .build(),
                 PropertyDefinition.builder(HOOK_URL.value())
-                    .name("Slack Incoming Webhook")
+                    .name("Slack Incoming Webhooks")
                     .description("https://hooks.slack.com/services/...")
                     .type(PropertyType.STRING)
                     .category(CATEGORY)
                     .subCategory(SUBCATEGORY)
                     .index(1)
+                    .fields(
+                        PropertyFieldDefinition.build("Project")
+                            .name("Project Key")
+                            .description("Ex: com.koant.sonar.slack:sonar-slack-notifier-plugin, can use '*' wildcard at the end")
+                            .type(PropertyType.PROPERTY_SET)
+                            .build()
+                    )
                     .build(),
                 SonarSlackPostProjectAnalysisTask.class
             )
