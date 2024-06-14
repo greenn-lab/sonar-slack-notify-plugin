@@ -1,21 +1,23 @@
 package io.github.greennlab.sonar.slack.notify;
 
 import io.github.greennlab.sonar.slack.notify.task.SonarSlackPostProjectAnalysisTask;
+import io.github.greennlab.sonar.slack.notify.webapi.WebApiProcessor;
 import org.sonar.api.Plugin;
 import org.sonar.api.PropertyType;
 import org.sonar.api.config.PropertyDefinition;
-
-import java.util.List;
 import org.sonar.api.config.PropertyFieldDefinition;
 
+import java.util.List;
+
 import static io.github.greennlab.sonar.slack.notify.SonarSlackNotifyProps.ENABLED;
-import static io.github.greennlab.sonar.slack.notify.SonarSlackNotifyProps.HOOK_URL;
+import static io.github.greennlab.sonar.slack.notify.SonarSlackNotifyProps.WEBHOOK;
 
 
 public class SonarSlackNotifyPlugin implements Plugin {
 
     private static final String CATEGORY = "Slack";
     private static final String SUBCATEGORY = "Slack Notify";
+
 
     @Override
     public void define(Context context) {
@@ -29,18 +31,35 @@ public class SonarSlackNotifyPlugin implements Plugin {
                     .subCategory(SUBCATEGORY)
                     .index(0)
                     .build(),
-                PropertyDefinition.builder(HOOK_URL.value())
-                    .name("Slack Incoming Webhooks")
-                    .description("https://hooks.slack.com/services/...")
-                    .type(PropertyType.STRING)
+            PropertyDefinition.builder(ENABLED.value())
+                    .name("User Token")
+                    .description("Profile Button > MyAccount > Security > Generate Tokens")
+                    .type(PropertyType.PASSWORD)
                     .category(CATEGORY)
                     .subCategory(SUBCATEGORY)
                     .index(1)
+                    .build(),
+                PropertyDefinition.builder(WEBHOOK.value())
+                    .name("Slack Incoming Webhooks")
+                    .description("https://hooks.slack.com/services/...")
+                    .type(PropertyType.PROPERTY_SET)
+                    .category(CATEGORY)
+                    .subCategory(SUBCATEGORY)
+                    .index(2)
                     .fields(
-                        PropertyFieldDefinition.build("Project")
-                            .name("Project Key")
-                            .description("Ex: com.koant.sonar.slack:sonar-slack-notifier-plugin, can use '*' wildcard at the end")
-                            .type(PropertyType.PROPERTY_SET)
+                        PropertyFieldDefinition.build("enable")
+                            .name("Enabled")
+                            .type(PropertyType.BOOLEAN)
+                            .build(),
+                        PropertyFieldDefinition.build("project")
+                            .name("Project Name")
+                            .description("Must match project name perfectly")
+                            .type(PropertyType.STRING)
+                            .build(),
+                        PropertyFieldDefinition.build("url")
+                            .name("Webhook URL")
+                            .description("https://hooks.slack.com/service/...")
+                            .type(PropertyType.STRING)
                             .build()
                     )
                     .build(),

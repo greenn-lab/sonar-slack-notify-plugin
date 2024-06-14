@@ -1,7 +1,7 @@
 package io.github.greennlab.sonar.slack.notify;
 
 public enum SonarSlackNotifyProps {
-    HOOK_URL("green.slack.notify.hook"),
+    WEBHOOK("green.slack.notify.webhook"),
 
     ENABLED("green.slack.notify.enabled");
 

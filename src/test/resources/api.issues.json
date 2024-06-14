@@ -1,0 +1,160 @@
+{
+  "total": 4,
+  "p": 1,
+  "ps": 100,
+  "paging": {
+    "pageIndex": 1,
+    "pageSize": 100,
+    "total": 4
+  },
+  "effortTotal": 32,
+  "issues": [
+    {
+      "key": "AZAGVb-v0lyS_Rfwxriu",
+      "rule": "java:S112",
+      "severity": "MAJOR",
+      "component": "XXXX:src/main/java/abc/def/boilerplate/user/api/UserController.java",
+      "project": "XXXX",
+      "line": 38,
+      "hash": "fdda924e16c6c8cb6afc035461946766",
+      "textRange": {
+        "startLine": 38,
+        "endLine": 38,
+        "startOffset": 18,
+        "endOffset": 34
+      },
+      "flows": [],
+      "status": "OPEN",
+      "message": "Define and throw a dedicated exception instead of using a generic one.",
+      "effort": "20min",
+      "debt": "20min",
+      "assignee": "78085",
+      "author": "test@langsa.ai",
+      "tags": [
+        "cert",
+        "cwe",
+        "error-handling"
+      ],
+      "creationDate": "2024-06-11T08:06:35+0000",
+      "updateDate": "2024-06-11T08:15:18+0000",
+      "type": "CODE_SMELL",
+      "scope": "MAIN",
+      "quickFixAvailable": false,
+      "messageFormattings": []
+    },
+    {
+      "key": "AZAGVb-v0lyS_Rfwxriw",
+      "rule": "java:S2119",
+      "severity": "CRITICAL",
+      "component": "XXXX:src/main/java/abc/def/boilerplate/user/api/UserController.java",
+      "project": "XXXX",
+      "line": 43,
+      "hash": "78522b6a23c126595db806da73d4ad71",
+      "textRange": {
+        "startLine": 43,
+        "endLine": 43,
+        "startOffset": 8,
+        "endOffset": 14
+      },
+      "flows": [],
+      "status": "OPEN",
+      "message": "Save and re-use this \"Random\".",
+      "effort": "5min",
+      "debt": "5min",
+      "assignee": "test-langsa84800",
+      "author": "test@langsa.ai",
+      "tags": [
+        "owasp-a6"
+      ],
+      "creationDate": "2024-06-11T08:06:35+0000",
+      "updateDate": "2024-06-11T08:32:50+0000",
+      "type": "BUG",
+      "scope": "MAIN",
+      "quickFixAvailable": false,
+      "messageFormattings": []
+    },
+    {
+      "key": "AZAGVb-v0lyS_Rfwxrix",
+      "rule": "java:S4347",
+      "severity": "CRITICAL",
+      "component": "XXXX:src/main/java/abc/def/boilerplate/user/api/UserController.java",
+      "project": "XXXX",
+      "line": 46,
+      "hash": "3909aba4981753d27b9de16912213adb",
+      "textRange": {
+        "startLine": 46,
+        "endLine": 46,
+        "startOffset": 31,
+        "endOffset": 38
+      },
+      "flows": [],
+      "status": "OPEN",
+      "message": "Change this seed value to something unpredictable, or remove the seed.",
+      "effort": "2min",
+      "debt": "2min",
+      "assignee": "46921",
+      "author": "test@langsa.ai",
+      "tags": [
+        "cert",
+        "cwe",
+        "owasp-a6",
+        "pitfall"
+      ],
+      "creationDate": "2024-06-11T08:06:35+0000",
+      "updateDate": "2024-06-11T08:32:15+0000",
+      "type": "VULNERABILITY",
+      "scope": "MAIN",
+      "quickFixAvailable": false,
+      "messageFormattings": []
+    },
+    {
+      "key": "AZAGTrRS0lyS_Rfwxrc3",
+      "rule": "java:S2204",
+      "severity": "MAJOR",
+      "component": "XXXX:src/main/java/abc/def/boilerplate/user/api/UserController.java",
+      "project": "XXXX",
+      "line": 29,
+      "hash": "7e7d598b75cc1833fc1f167f9805902a",
+      "textRange": {
+        "startLine": 29,
+        "endLine": 29,
+        "startOffset": 11,
+        "endOffset": 17
+      },
+      "flows": [],
+      "status": "OPEN",
+      "message": "Use \".get()\" to retrieve the value and compare it instead.",
+      "effort": "5min",
+      "debt": "5min",
+      "assignee": "46921",
+      "author": "test@langsa.ai",
+      "tags": [
+        "multi-threading"
+      ],
+      "creationDate": "2024-06-11T07:19:14+0000",
+      "updateDate": "2024-06-11T08:21:44+0000",
+      "type": "BUG",
+      "scope": "MAIN",
+      "quickFixAvailable": false,
+      "messageFormattings": []
+    }
+  ],
+  "components": [
+    {
+      "key": "XXXX",
+      "enabled": true,
+      "qualifier": "TRK",
+      "name": "advisor",
+      "longName": "advisor"
+    },
+    {
+      "key": "XXXX:src/main/java/abc/def/boilerplate/user/api/UserController.java",
+      "enabled": true,
+      "qualifier": "FIL",
+      "name": "UserController.java",
+      "longName": "src/main/java/abc/def/boilerplate/user/api/UserController.java",
+      "path": "src/main/java/abc/def/boilerplate/user/api/UserController.java"
+    }
+  ],
+  "facets": []
+}

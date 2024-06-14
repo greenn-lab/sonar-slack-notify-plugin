@@ -21,7 +21,7 @@ class SlackMessageTest {
   public static void main(String[] args) throws IOException {
     Slack slack = Slack.getInstance();
     var response = slack.send(
-        "https://hooks.slack.com/services/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",
+        "https://hooks.slack.com/services/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",
         Payload.builder()
             .attachments(
                 List.of(

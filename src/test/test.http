@@ -1,0 +1,28 @@
+# @no-cookie-jar
+GET https://static-analysis.langsa.ai/api/users/search?ps=500
+authorization: Bearer sqa_5c221028ab206d3919e389463a946d690530ca5a
+cookie: JWT-SESSION=eyJhbGciOiJIUzI1NiJ9.eyJsYXN0UmVmcmVzaFRpbWUiOjE3MTgzMzU5MDk5OTMsInhzcmZUb2tlbiI6Im9jM3E1Z2JlbDVuZ2EwM2UzZWIyZnBiMWM1IiwianRpIjoiQVpBVXpUQnAxNnZXdktWSEs2VkYiLCJzdWIiOiJBWkFVd2RiTzE2dld2S1ZISzZVOSIsImlhdCI6MTcxODMzNTkwOSwiZXhwIjoxNzE4NTk1MTA5fQ.IEqO9fqUHsVzRvdJHDxH4SHfqSgJ9RMlLPT9T2A9kx0; Path=/; SameSite=Lax; Max-Age=259200; HttpOnly; Secure
+#cookie: JWT-SESSION=eyJhbGciOiJIUzI1NiJ9.eyJsYXN0UmVmcmVzaFRpbWUiOjE3MTgzMzUwMjA2OTQsInhzcmZUb2tlbiI6Im9idDYxdXVvb3E2bzJ1NGNoNTJsOG91dDQxIiwianRpIjoiQVpBVXY1NlcxNnZXdktWSEs2VTgiLCJzdWIiOiJBWV9pc3ZSdVFjOVpicmVOQ3JieSIsImlhdCI6MTcxODMzNTAyMCwiZXhwIjoxNzE4NTk0MjIwfQ.Gvd0HAFGVLyl6TLm8IlppaBGuipdkbF7iUvvtCPisTE
+#pragma: no-cache
+
+###
+# @no-cookie-jar
+POST https://static-analysis.langsa.ai/api/authentication/login
+Content-Type: application/x-www-form-urlencoded
+
+login = sysop &
+password = test123$
+
+###
+# @no-cookie-jar
+# @no-log
+POST https://static-analysis.langsa.ai/api/authentication/login
+Content-Type: application/x-www-form-urlencoded
+Host: static-analysis.langsa.ai
+Connection:
+Accept-Encoding:
+User-Agent: curl
+x-http2-scheme: https
+
+login = sysop &
+password = test123$

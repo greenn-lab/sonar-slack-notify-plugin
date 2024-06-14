@@ -1,17 +1,17 @@
 package io.github.greennlab.sonar.slack.notify.task;
 
 import com.slack.api.Slack;
-import com.slack.api.webhook.Payload;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.ce.posttask.PostProjectAnalysisTask;
 import org.sonar.api.ce.posttask.Project;
-import org.sonar.api.ce.posttask.ScannerContext;
 import org.sonar.api.config.Configuration;
 
-import java.io.IOException;
+import java.util.List;
+import java.util.Objects;
 
-import static io.github.greennlab.sonar.slack.notify.SonarSlackNotifyProps.HOOK_URL;
+import static java.lang.Boolean.FALSE;
+import static org.sonar.api.internal.apachecommons.lang.StringUtils.isNotBlank;
 
 
 public class SonarSlackPostProjectAnalysisTask implements PostProjectAnalysisTask {
@@ -24,44 +24,48 @@ public class SonarSlackPostProjectAnalysisTask implements PostProjectAnalysisTas
 
 
     public SonarSlackPostProjectAnalysisTask(Configuration configuration) {
-        this(Slack.getInstance(), configuration);
-    }
-
-    public SonarSlackPostProjectAnalysisTask(Slack slack, Configuration configuration) {
         this.configuration = configuration;
-        this.slack = slack;
+        this.slack = Slack.getInstance();
     }
 
 
     @Override
     public void finished(Context context) {
-        var payload = new StringBuilder("📣 Sonarqube" + LF + LF);
+        var allEnabled = configuration.getBoolean("green.slack.notify.enabled").orElse(FALSE);
+        if (FALSE.equals(allEnabled)) return;
 
         var analysis = context.getProjectAnalysis();
-        var qualityGate = analysis.getQualityGate();
-
         var project = analysis.getProject();
-        payload.append(project.getName()).append(" (").append(project.getKey()).append(")").append(LF);
+        var projectName = project.getName();
+        log.info("Post Project Analysis: {}", projectName);
 
-        if (qualityGate != null) {
-            var status = qualityGate.getStatus();
-            payload.append("STATUS: ").append(status).append(LF);
-        }
+        List.of(configuration.get("green.slack.notify.webhook").orElse("").split(","))
+            .forEach(number -> {
+                var hookedProject = configuration.get("green.slack.notify.webhook." + number + ".project").orElse("");
+                var url = configuration.get("green.slack.notify.webhook." + number + ".url").orElse("");
 
+                if (Objects.equals(hookedProject, projectName) && isNotBlank(hookedProject) && isNotBlank(url)) {
+                    sendToSlack(url, project, analysis);
+                }
+            });
+    }
 
-        sonarqubeLink(project, payload);
+    private void sendToSlack(String url, Project project, ProjectAnalysis analysis) {
+        log.info("Slack Notify project: {}", project);
 
+        analysis.getQualityGate().getStatus();
 
-        log.warn("{}", payload);
-
-        try {
-            slack.send(
-                configuration.get(HOOK_URL.value()).orElseThrow(NullPointerException::new),
-                Payload.builder().text(payload.toString()).build()
-            );
-        } catch (IOException e) {
-            log.error("Occurred network error on sending to slack.", e);
-        }
+//        sonarqubeLink(project, payload);
+//
+//
+//        try {
+//            slack.send(
+//                configuration.get(WEBHOOK.value()).orElseThrow(NullPointerException::new),
+//                Payload.builder().text(payload.toString()).build()
+//            );
+//        } catch (IOException e) {
+//            log.error("Occurred network error on sending to slack.", e);
+//        }
     }
 
     private void sonarqubeLink(Project project, StringBuilder payload) {
