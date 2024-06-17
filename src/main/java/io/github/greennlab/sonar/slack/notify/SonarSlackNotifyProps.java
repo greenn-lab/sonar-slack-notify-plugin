@@ -18,6 +18,6 @@ public enum SonarSlackNotifyProps {
   }
 
   public String value(String number, String suffix) {
-    return value + number + "." + suffix;
+    return value + "." + number + "." + suffix;
   }
 }

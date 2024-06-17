@@ -11,6 +11,7 @@ import com.slack.api.model.block.HeaderBlock;
 import com.slack.api.model.block.composition.PlainTextObject;
 import com.slack.api.webhook.Payload;
 import com.slack.api.webhook.WebhookResponse;
+import io.github.greennlab.sonar.slack.notify.webapi.Issue;
 import io.github.greennlab.sonar.slack.notify.webapi.IssueSummary;
 import java.io.IOException;
 import java.util.List;
@@ -77,17 +78,14 @@ public class SlackMessageSender {
                     .title(type)
                     .fields(
                         summary.getIssuesByType().get(type).stream().map(issue -> Field.builder()
-                            .title(
-                                format("🫡%s 🚫%s 🔖%s",
-                                    issue.getAuthor() +
-                                        (issue.getAuthor().equals(issue.getAssignee())
-                                            ? ""
-                                            : "(" + issue.getAssignee() + ")"),
+                            .title(issue.getMessage())
+                            .value(
+                                format("`%s` 🚫%s 🔖%s",
+                                    decorateAuthor(issue),
                                     issue.getRule(),
                                     String.join("", issue.getTags())
                                 )
                             )
-                            .value(issue.getMessage())
                             .build()).toList()
                     )
                     .build()
@@ -106,6 +104,22 @@ public class SlackMessageSender {
     }
 
     throw new IllegalStateException();
+  }
+
+  private String decorateAuthor(Issue issue) {
+    if (issue.getAuthor() == null || issue.getAuthor().isBlank()) {
+      return "Nobody";
+    }
+
+    if (issue.getAuthor().equals(issue.getAssignee())) {
+      return issue.getAuthor();
+    }
+
+    if (issue.getAssignee() == null || issue.getAssignee().isBlank()) {
+      return issue.getAuthor();
+    }
+
+    return format("%s(%s 에게 던지기)", issue.getAuthor(), issue.getAssignee());
   }
 
 }

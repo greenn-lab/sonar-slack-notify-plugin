@@ -46,12 +46,13 @@
     <dependency>
       <artifactId>slack-api-client</artifactId>
       <groupId>com.slack.api</groupId>
-      <version>1.39.3</version>
+      <version>1.40.0</version>
     </dependency>
     <dependency>
       <artifactId>slf4j-api</artifactId>
       <groupId>org.slf4j</groupId>
       <version>2.0.13</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <artifactId>lombok</artifactId>

@@ -37,7 +37,7 @@ public class SonarSlackNotifyPlugin implements Plugin {
                 .subCategory(SUBCATEGORY)
                 .index(1)
                 .fields(
-                    PropertyFieldDefinition.build("enable")
+                    PropertyFieldDefinition.build("enabled")
                         .name("Enabled")
                         .type(PropertyType.BOOLEAN)
                         .build(),
