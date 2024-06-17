@@ -1,5 +1,6 @@
 package io.github.greennlab.sonar.slack.notify.task;
 
+import static io.github.greennlab.sonar.slack.notify.SonarSlackNotifyProps.ENABLED;
 import static io.github.greennlab.sonar.slack.notify.SonarSlackNotifyProps.WEBHOOK;
 import static java.lang.Boolean.FALSE;
 import static org.sonar.api.internal.apachecommons.lang.StringUtils.isNotBlank;
@@ -31,7 +32,7 @@ public class SonarSlackPostProjectAnalysisTask implements PostProjectAnalysisTas
 
   @Override
   public void finished(Context context) {
-    var allEnabled = config.getBoolean("green.slack.notify.enabled").orElse(FALSE);
+    var allEnabled = config.getBoolean(ENABLED.value()).orElse(FALSE);
     if (FALSE.equals(allEnabled)) {
       return;
     }
@@ -44,11 +45,11 @@ public class SonarSlackPostProjectAnalysisTask implements PostProjectAnalysisTas
     var projectKey = project.getKey();
     var projectName = project.getName();
 
-    List.of(config.get("green.slack.notify.webhook").orElse("").split(","))
+    List.of(config.get(WEBHOOK.value()).orElse("").split(","))
         .forEach(number -> {
           if (config.getBoolean(WEBHOOK.value(number, "enabled")).orElse(FALSE)) {
-            var hookedProject = config.get(WEBHOOK.value(number, "project"))
-                .orElse("");
+            var hookedProject =
+                config.get(WEBHOOK.value(number, "project")).orElse("");
 
             if (Objects.equals(hookedProject, projectName)) {
               log.info("Post Project Analysis: {}", projectName);

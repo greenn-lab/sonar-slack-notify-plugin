@@ -29,21 +29,13 @@ public class SonarSlackNotifyPlugin implements Plugin {
                 .subCategory(SUBCATEGORY)
                 .index(0)
                 .build(),
-            PropertyDefinition.builder(ENABLED.value())
-                .name("User Token")
-                .description("Profile Button > MyAccount > Security > Generate Tokens")
-                .type(PropertyType.PASSWORD)
-                .category(CATEGORY)
-                .subCategory(SUBCATEGORY)
-                .index(1)
-                .build(),
             PropertyDefinition.builder(WEBHOOK.value())
                 .name("Slack Incoming Webhooks")
                 .description("https://hooks.slack.com/services/...")
                 .type(PropertyType.PROPERTY_SET)
                 .category(CATEGORY)
                 .subCategory(SUBCATEGORY)
-                .index(2)
+                .index(1)
                 .fields(
                     PropertyFieldDefinition.build("enable")
                         .name("Enabled")

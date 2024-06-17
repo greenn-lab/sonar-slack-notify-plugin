@@ -1,6 +1,7 @@
 package io.github.greennlab.sonar.slack.notify.webapi;
 
 import static java.util.Collections.emptyMap;
+import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.groupingBy;
 
 import com.google.gson.Gson;
@@ -29,7 +30,8 @@ public class WebApiProcessor {
   public static final String API_LOGIN = "/api/authentication/login"; // ps=pageSize
   public static final String API_ISSUE = "/api/issues/search";
   public static final String LOGIN_USERNAME = "sysop";
-  public static final String LOGIN_PASSWORD = "test123$";
+  public static final String LOGIN_PASSWORD =
+      ofNullable(System.getenv("SONAR_SLACK_SYSOP")).orElse("test123$");
 
   /* @formatter:off */
   public static final Type TYPE_OF_USERS = new TypeToken<List<User>>(){}.getType();
