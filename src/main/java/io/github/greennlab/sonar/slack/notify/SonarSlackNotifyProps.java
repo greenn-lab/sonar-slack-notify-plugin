@@ -1,19 +1,23 @@
 package io.github.greennlab.sonar.slack.notify;
 
 public enum SonarSlackNotifyProps {
-    WEBHOOK("green.slack.notify.webhook"),
+  WEBHOOK("green.slack.notify.webhook"),
 
-    ENABLED("green.slack.notify.enabled");
-
-
-    private final String value;
+  ENABLED("green.slack.notify.enabled");
 
 
-    SonarSlackNotifyProps(String value) {
-        this.value = value;
-    }
+  private final String value;
 
-    public String value() {
-        return value;
-    }
+
+  SonarSlackNotifyProps(String value) {
+    this.value = value;
+  }
+
+  public String value() {
+    return value;
+  }
+
+  public String value(String number, String suffix) {
+    return value + number + "." + suffix;
+  }
 }

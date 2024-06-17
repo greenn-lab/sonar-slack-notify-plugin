@@ -1,80 +1,83 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>io.github.greenn-lab</groupId>
-    <artifactId>sonar-slack-notify-plugin</artifactId>
-    <version>0.0.1</version>
-    <packaging>sonar-plugin</packaging>
-    <name>Sonar Slack Notify Plugin</name>
-    <description>Send notifications to Slack.</description>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <artifactId>sonar-slack-notify-plugin</artifactId>
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>sonar-packaging-maven-plugin</artifactId>
+        <configuration>
+          <jarName>slack-notify-${project.version}</jarName>
+          <pluginApiMinVersion>9.0.0</pluginApiMinVersion>
+          <pluginClass>io.github.greennlab.sonar.slack.notify.SonarSlackNotifyPlugin</pluginClass>
+          <pluginDescription>Slack notifications for issue report</pluginDescription>
+          <pluginIssueTrackerUrl>https://github.com/greenn-lab/sonar-slack-notify-plugin/issues
+          </pluginIssueTrackerUrl>
+          <pluginKey>slack-notify</pluginKey>
+          <pluginName>Slack Notify</pluginName>
+          <pluginOrganizationName>https://github.com/greenn-lab</pluginOrganizationName>
+          <pluginOrganizationUrl>https://github.com/greenn-lab</pluginOrganizationUrl>
+          <pluginSourcesUrl>https://github.com/greenn-lab/sonar-slack-notify-plugin
+          </pluginSourcesUrl>
+          <pluginUrl>https://github.com/greenn-lab/sonar-slack-notify-plugin</pluginUrl>
+        </configuration>
+        <extensions>true</extensions>
+        <groupId>org.sonarsource.sonar-packaging-maven-plugin</groupId>
+        <version>1.23.0.740</version>
+      </plugin>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>${java.version}</source>
+          <target>${java.version}</target>
+        </configuration>
+        <groupId>org.apache.maven.plugins</groupId>
+        <version>3.13.0</version>
+      </plugin>
+    </plugins>
+  </build>
+  <dependencies>
+    <dependency>
+      <artifactId>sonar-plugin-api</artifactId>
+      <groupId>org.sonarsource.api.plugin</groupId>
+      <scope>provided</scope>
+      <version>10.7.0.2191</version>
+    </dependency>
+    <dependency>
+      <artifactId>slack-api-client</artifactId>
+      <groupId>com.slack.api</groupId>
+      <version>1.39.3</version>
+    </dependency>
+    <dependency>
+      <artifactId>slf4j-api</artifactId>
+      <groupId>org.slf4j</groupId>
+      <version>2.0.13</version>
+    </dependency>
+    <dependency>
+      <artifactId>lombok</artifactId>
+      <groupId>org.projectlombok</groupId>
+      <optional>true</optional>
+      <scope>compile</scope>
+      <version>1.18.32</version>
+    </dependency>
 
-    <properties>
-        <java.version>17</java.version>
-    </properties>
+    <dependency>
+      <artifactId>junit-jupiter-api</artifactId>
+      <groupId>org.junit.jupiter</groupId>
+      <scope>test</scope>
+      <version>5.10.2</version>
+    </dependency>
+  </dependencies>
+  <description>Send notifications to Slack.</description>
+  <groupId>io.github.greenn-lab</groupId>
+  <modelVersion>4.0.0</modelVersion>
+  <name>Sonar Slack Notify Plugin</name>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.sonarsource.api.plugin</groupId>
-            <artifactId>sonar-plugin-api</artifactId>
-            <version>10.7.0.2191</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.slack.api</groupId>
-            <artifactId>slack-api-client</artifactId>
-            <version>1.39.3</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>2.0.13</version>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.32</version>
-            <optional>true</optional>
-            <scope>compile</scope>
-        </dependency>
+  <packaging>sonar-plugin</packaging>
 
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>5.10.2</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+  <properties>
+    <java.version>17</java.version>
+  </properties>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.sonarsource.sonar-packaging-maven-plugin</groupId>
-                <artifactId>sonar-packaging-maven-plugin</artifactId>
-                <version>1.23.0.740</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <jarName>slack-notify-${project.version}</jarName>
-                    <pluginApiMinVersion>9.0.0</pluginApiMinVersion>
-                    <pluginKey>slack-notify</pluginKey>
-                    <pluginClass>io.github.greennlab.sonar.slack.notify.SonarSlackNotifyPlugin</pluginClass>
-                    <pluginName>Slack Notify</pluginName>
-                    <pluginDescription>Slack notifications for issue report</pluginDescription>
-                    <pluginUrl>https://github.com/greenn-lab/sonar-slack-notify-plugin</pluginUrl>
-                    <pluginIssueTrackerUrl>https://github.com/greenn-lab/sonar-slack-notify-plugin/issues</pluginIssueTrackerUrl>
-                    <pluginSourcesUrl>https://github.com/greenn-lab/sonar-slack-notify-plugin</pluginSourcesUrl>
-                    <pluginOrganizationName>https://github.com/greenn-lab</pluginOrganizationName>
-                    <pluginOrganizationUrl>https://github.com/greenn-lab</pluginOrganizationUrl>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.13.0</version>
-                <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+  <version>0.0.1</version>
 </project>
