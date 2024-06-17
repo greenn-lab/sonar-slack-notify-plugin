@@ -43,7 +43,6 @@ public class SonarSlackPostProjectAnalysisTask implements PostProjectAnalysisTas
     var analysis = context.getProjectAnalysis();
     var project = analysis.getProject();
     var projectKey = project.getKey();
-    var projectName = project.getName();
 
     List.of(config.get(WEBHOOK.value()).orElse("").split(","))
         .forEach(number -> {
@@ -51,8 +50,8 @@ public class SonarSlackPostProjectAnalysisTask implements PostProjectAnalysisTas
             var hookedProject =
                 config.get(WEBHOOK.value(number, "project")).orElse("");
 
-            if (Objects.equals(hookedProject, projectName)) {
-              log.info("Post Project Analysis: {}", projectName);
+            if (Objects.equals(hookedProject, projectKey)) {
+              log.info("Post Project Analysis: {}", projectKey);
 
               var url = config.get(WEBHOOK.value(number, "url")).orElse("");
               if (isNotBlank(url)) {

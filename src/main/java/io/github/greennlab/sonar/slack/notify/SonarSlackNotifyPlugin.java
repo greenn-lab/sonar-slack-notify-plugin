@@ -42,8 +42,8 @@ public class SonarSlackNotifyPlugin implements Plugin {
                         .type(PropertyType.BOOLEAN)
                         .build(),
                     PropertyFieldDefinition.build("project")
-                        .name("Project Name")
-                        .description("Must match project name perfectly")
+                        .name("Project Key")
+                        .description("Must match project key perfectly")
                         .type(PropertyType.STRING)
                         .build(),
                     PropertyFieldDefinition.build("url")
